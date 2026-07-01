@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vantyx — Soluciones Tecnológicas Integrales</title>
+  <meta name="description" content="Vantyx ofrece servicios tecnológicos integrales: desarrollo web, software a medida, soporte remoto, mantenimiento, seguridad, cloud y más para empresas en México." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #1a2340; --navy-2: #0f1829; --steel: #5a6478;
+      --accent: #2d6cdf; --accent-2: #4a8fff;
+      --light: #f0f2f5; --white: #ffffff; --card-bg: #f7f8fa;
+      --border: #e2e6ed; --text: #1a2340; --muted: #6b7280;
+      --radius: 12px; --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+    h1,h2,h3,h4 { font-family: 'Syne', sans-serif; line-height: 1.15; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1rem 5%; background: rgba(255,255,255,0.92); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+    .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+    .nav-logo svg { width: 36px; height: 36px; }
+    .nav-brand { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; color: var(--navy); letter-spacing: -0.02em; }
+    .nav-brand span { color: var(--accent); }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--steel); font-size: 0.875rem; font-weight: 500; transition: color var(--transition); }
+    .nav-links a:hover { color: var(--navy); }
+    .nav-cta { background: var(--navy) !important; color: var(--white) !important; padding: 0.45rem 1.1rem; border-radius: 6px; }
+    .nav-cta:hover { background: var(--accent) !important; }
+
+    /* HERO */
+    #hero { min-height: 100vh; display: flex; align-items: center; padding: 8rem 5% 5rem; background: linear-gradient(135deg,#f7f8fa 0%,#eef1f7 100%); position: relative; overflow: hidden; }
+    .hero-grid-bg { position: absolute; inset: 0; opacity: 0.04; background-image: linear-gradient(var(--navy) 1px,transparent 1px),linear-gradient(90deg,var(--navy) 1px,transparent 1px); background-size: 40px 40px; }
+    .hero-glow { position: absolute; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle,rgba(45,108,223,0.08) 0%,transparent 70%); top: -100px; right: -100px; pointer-events: none; }
+    .hero-content { max-width: 700px; position: relative; z-index: 1; animation: fadeUp 0.8s ease both; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(45,108,223,0.08); border: 1px solid rgba(45,108,223,0.2); border-radius: 100px; padding: 0.35rem 1rem; font-size: 0.8rem; font-weight: 500; color: var(--accent); margin-bottom: 1.5rem; }
+    .hero-badge::before { content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
+    h1.hero-title { font-size: clamp(2.4rem,5vw,4rem); font-weight: 800; color: var(--navy); margin-bottom: 1.25rem; letter-spacing: -0.03em; }
+    h1.hero-title em { font-style: normal; color: var(--accent); }
+    .hero-subtitle { font-size: 1.1rem; color: var(--muted); font-weight: 300; max-width: 540px; margin-bottom: 2.5rem; line-height: 1.7; }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--navy); color: var(--white); padding: 0.85rem 1.75rem; border-radius: var(--radius); text-decoration: none; font-weight: 600; font-size: 0.95rem; font-family: 'Syne',sans-serif; transition: all var(--transition); border: 2px solid var(--navy); }
+    .btn-primary:hover { background: var(--accent); border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(45,108,223,0.25); }
+    .btn-secondary { display: inline-flex; align-items: center; gap: 0.5rem; background: transparent; color: var(--navy); padding: 0.85rem 1.75rem; border-radius: var(--radius); text-decoration: none; font-weight: 600; font-size: 0.95rem; font-family: 'Syne',sans-serif; transition: all var(--transition); border: 2px solid var(--border); }
+    .btn-secondary:hover { border-color: var(--navy); transform: translateY(-2px); }
+    .hero-stats { display: flex; gap: 2.5rem; margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid var(--border); animation: fadeUp 0.8s 0.3s ease both; }
+    .stat-number { font-family: 'Syne',sans-serif; font-size: 1.8rem; font-weight: 800; color: var(--navy); line-height: 1; }
+    .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 0.2rem; }
+
+    /* SECTION BASE */
+    section { padding: 6rem 5%; }
+    .section-header { max-width: 560px; margin-bottom: 3.5rem; }
+    .section-tag { display: inline-block; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 0.75rem; }
+    .section-title { font-size: clamp(1.8rem,3vw,2.6rem); font-weight: 800; color: var(--navy); letter-spacing: -0.02em; line-height: 1.2; }
+    .section-desc { margin-top: 0.75rem; color: var(--muted); font-size: 1rem; line-height: 1.7; }
+
+    /* SERVICES */
+    #servicios { background: var(--white); }
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(255px,1fr)); gap: 1.25rem; }
+    .service-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.75rem; transition: all var(--transition); position: relative; overflow: hidden; }
+    .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg,var(--accent),var(--accent-2)); transform: scaleX(0); transform-origin: left; transition: transform var(--transition); }
+    .service-card:hover { border-color: rgba(45,108,223,0.3); transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-icon { width: 46px; height: 46px; background: rgba(45,108,223,0.08); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.1rem; }
+    .service-icon svg { width: 22px; height: 22px; }
+    .service-card h3 { font-size: 1.05rem; font-weight: 700; color: var(--navy); margin-bottom: 0.5rem; }
+    .service-card p { font-size: 0.875rem; color: var(--muted); line-height: 1.65; }
+    .service-new { position: absolute; top: 1rem; right: 1rem; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; background: rgba(45,108,223,0.1); color: var(--accent); padding: 0.15rem 0.5rem; border-radius: 4px; }
+
+    /* PRICING */
+    #precios { background: var(--light); }
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 1.5rem; align-items: start; }
+    .pricing-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; transition: all var(--transition); position: relative; }
+    .pricing-card.featured { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(45,108,223,0.12); }
+    .pricing-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--accent); color: var(--white); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.25rem 0.9rem; border-radius: 100px; white-space: nowrap; }
+    .pricing-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.1); }
+    .pricing-service { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 0.5rem; }
+    .pricing-card h3 { font-size: 1.15rem; font-weight: 700; color: var(--navy); margin-bottom: 0.4rem; }
+    .pricing-desc { font-size: 0.85rem; color: var(--muted); margin-bottom: 1.5rem; line-height: 1.5; }
+    .pricing-price { display: flex; align-items: baseline; gap: 0.25rem; margin-bottom: 1.5rem; }
+    .price-currency { font-size: 1rem; font-weight: 600; color: var(--navy); }
+    .price-amount { font-family: 'Syne',sans-serif; font-size: 2.4rem; font-weight: 800; color: var(--navy); line-height: 1; }
+    .price-period { font-size: 0.8rem; color: var(--muted); margin-left: 0.2rem; }
+    .pricing-features { list-style: none; margin-bottom: 1.75rem; }
+    .pricing-features li { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.875rem; color: var(--steel); padding: 0.4rem 0; border-bottom: 1px solid var(--border); }
+    .pricing-features li:last-child { border-bottom: none; }
+    .pricing-features li::before { content: "✓"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+    .pricing-cta { display: block; text-align: center; background: var(--card-bg); color: var(--navy); padding: 0.8rem; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.9rem; font-family: 'Syne',sans-serif; border: 1px solid var(--border); transition: all var(--transition); }
+    .pricing-cta:hover { background: var(--navy); color: var(--white); border-color: var(--navy); }
+    .pricing-card.featured .pricing-cta { background: var(--accent); color: var(--white); border-color: var(--accent); }
+    .pricing-card.featured .pricing-cta:hover { background: var(--navy); border-color: var(--navy); }
+    .pricing-note { margin-top: 2.5rem; text-align: center; font-size: 0.85rem; color: var(--muted); }
+    .pricing-note strong { color: var(--navy); }
+
+    /* BLOG */
+    #blog { background: var(--white); }
+    .blog-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 1.5rem; }
+    .blog-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: all var(--transition); }
+    .blog-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+    .blog-thumb { height: 150px; display: flex; align-items: center; justify-content: center; font-size: 2.8rem; }
+    .blog-thumb-1 { background: linear-gradient(135deg,#e8f0fe,#c7d7fc); }
+    .blog-thumb-2 { background: linear-gradient(135deg,#e6f4ea,#c8e6c9); }
+    .blog-thumb-3 { background: linear-gradient(135deg,#fce8e6,#f5c6c2); }
+    .blog-thumb-4 { background: linear-gradient(135deg,#fff3e0,#ffe0b2); }
+    .blog-body { padding: 1.4rem; }
+    .blog-tag { display: inline-block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); background: rgba(45,108,223,0.08); padding: 0.2rem 0.6rem; border-radius: 4px; margin-bottom: 0.7rem; }
+    .blog-card h3 { font-size: 0.975rem; font-weight: 700; color: var(--navy); margin-bottom: 0.5rem; line-height: 1.35; }
+    .blog-card p { font-size: 0.84rem; color: var(--muted); line-height: 1.6; margin-bottom: 1rem; }
+    .blog-meta { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--muted); align-items: center; }
+    .blog-read-more { font-size: 0.8rem; font-weight: 600; color: var(--accent); text-decoration: none; }
+    .blog-read-more:hover { text-decoration: underline; }
+    .blog-coming-soon { margin-top: 2rem; text-align: center; padding: 1.25rem; background: var(--card-bg); border: 1px dashed var(--border); border-radius: var(--radius); font-size: 0.875rem; color: var(--muted); }
+
+    /* FAQ */
+    #faq { background: var(--light); }
+    .faq-layout { display: grid; grid-template-columns: 1fr 1.6fr; gap: 4rem; align-items: start; }
+    .faq-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .faq-item { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .faq-question { width: 100%; padding: 1.1rem 1.25rem; background: none; border: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; font-family: 'Syne',sans-serif; font-size: 0.925rem; font-weight: 600; color: var(--navy); text-align: left; transition: background var(--transition); }
+    .faq-question:hover { background: var(--card-bg); }
+    .faq-question.open { color: var(--accent); }
+    .faq-icon { font-size: 1.2rem; flex-shrink: 0; transition: transform var(--transition); margin-left: 1rem; }
+    .faq-question.open .faq-icon { transform: rotate(45deg); }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.35s ease; font-size: 0.9rem; color: var(--muted); line-height: 1.7; padding: 0 1.25rem; }
+    .faq-answer.open { max-height: 300px; padding: 0 1.25rem 1.1rem; }
+
+    /* NOSOTROS */
+    #nosotros { background: var(--navy-2); color: var(--white); }
+    #nosotros .section-tag { color: var(--accent-2); }
+    #nosotros .section-title { color: var(--white); }
+    #nosotros .section-desc { color: rgba(255,255,255,0.55); }
+    .mvv-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap: 1.5rem; }
+    .mvv-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius); padding: 2rem; transition: all var(--transition); }
+    .mvv-card:hover { background: rgba(255,255,255,0.07); border-color: rgba(74,143,255,0.3); }
+    .mvv-label { font-family: 'Syne',sans-serif; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent-2); margin-bottom: 0.75rem; }
+    .mvv-card h3 { font-size: 1.2rem; font-weight: 700; color: var(--white); margin-bottom: 0.75rem; }
+    .mvv-card p { font-size: 0.9rem; color: rgba(255,255,255,0.55); line-height: 1.7; }
+
+    /* CONTACT */
+    #contacto { background: var(--white); }
+    .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .contact-info h2 { font-size: clamp(1.8rem,3vw,2.4rem); font-weight: 800; color: var(--navy); margin-bottom: 1rem; letter-spacing: -0.02em; }
+    .contact-info p { color: var(--muted); line-height: 1.7; margin-bottom: 2rem; }
+    .contact-item { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; font-size: 0.9rem; color: var(--steel); }
+    .contact-form { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; }
+    .form-group { margin-bottom: 1.25rem; }
+    .form-group label { display: block; font-size: 0.78rem; font-weight: 600; color: var(--navy); margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .form-group input,.form-group textarea,.form-group select { width: 100%; padding: 0.75rem 1rem; background: var(--white); border: 1px solid var(--border); border-radius: 8px; font-family: 'DM Sans',sans-serif; font-size: 0.95rem; color: var(--text); outline: none; transition: border-color var(--transition); appearance: none; }
+    .form-group input:focus,.form-group textarea:focus,.form-group select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(45,108,223,0.1); }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .form-submit { width: 100%; padding: 0.9rem; background: var(--navy); color: var(--white); border: none; border-radius: var(--radius); font-family: 'Syne',sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all var(--transition); }
+    .form-submit:hover { background: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(45,108,223,0.3); }
+
+    /* FOOTER */
+    footer { background: var(--navy-2); color: rgba(255,255,255,0.4); padding: 2rem 5%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.85rem; }
+    .footer-brand { display: flex; align-items: center; gap: 0.75rem; }
+    .footer-brand svg { width: 28px; height: 28px; }
+    .footer-brand span { font-family: 'Syne',sans-serif; font-weight: 800; color: var(--white); font-size: 1rem; }
+    .footer-brand span em { font-style: normal; color: var(--accent-2); }
+    footer a { color: rgba(255,255,255,0.4); text-decoration: none; transition: color var(--transition); }
+    footer a:hover { color: var(--accent-2); }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* MOBILE */
+    @media (max-width:768px) {
+      nav { padding: 0.9rem 4%; }
+      .nav-links { display: none; }
+      #hero { padding: 7rem 4% 4rem; }
+      .hero-stats { gap: 1.5rem; }
+      .contact-layout,.faq-layout { grid-template-columns: 1fr; gap: 2rem; }
+      section { padding: 4rem 4%; }
+    }
+
+    /* ─── INSTAGRAM FLOAT BUTTON ─────────────────────────── */
+    .ig-float {
+      position: fixed; bottom: 2rem; right: 2rem; z-index: 200;
+      display: flex; align-items: center; gap: 0.6rem;
+      background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+      color: #fff; text-decoration: none;
+      padding: 0.75rem 1.2rem; border-radius: 100px;
+      font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.875rem;
+      box-shadow: 0 4px 20px rgba(131,58,180,0.4);
+      transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    .ig-float:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(131,58,180,0.5); }
+    .ig-float svg { width: 20px; height: 20px; flex-shrink: 0; }
+    @media (max-width:768px) {
+      .ig-float { bottom: 1.25rem; right: 1.25rem; padding: 0.7rem 1rem; font-size: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo">
+      <svg viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Bracket izquierdo < -->
+        <polyline points="28,18 10,50 28,82" stroke="#5a6478" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <!-- Bracket derecho > -->
+        <polyline points="92,18 110,50 92,82" stroke="#5a6478" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <!-- Cilindro: cuerpo -->
+        <rect x="38" y="33" width="44" height="34" fill="#1a2340"/>
+        <!-- Tapa superior -->
+        <ellipse cx="60" cy="33" rx="22" ry="7" fill="#1a2340"/>
+        <!-- Líneas internas del cilindro -->
+        <ellipse cx="60" cy="44" rx="22" ry="7" fill="#243058"/>
+        <ellipse cx="60" cy="55" rx="22" ry="7" fill="#1a2340"/>
+        <!-- Tapa inferior -->
+        <ellipse cx="60" cy="67" rx="22" ry="7" fill="#1a2340"/>
+        <!-- Reflejo sutil superior -->
+        <ellipse cx="60" cy="33" rx="22" ry="7" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+      </svg>
+      <span class="nav-brand">Van<span>tyx</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#precios">Precios</a></li>
+      <li><a href="#blog">Blog</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#contacto" class="nav-cta">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+      <div class="hero-badge">Soluciones Tecnológicas Integrales · México</div>
+      <h1 class="hero-title">Tu empresa merece<br/>tecnología de <em>verdad</em></h1>
+      <p class="hero-subtitle">En Vantyx construimos, protegemos y evolucionamos la infraestructura tecnológica de tu negocio. Desde software a medida hasta soporte diario, somos el equipo de IT que siempre quisiste tener.</p>
+      <div class="hero-actions">
+        <a href="#servicios" class="btn-primary">
+          Ver servicios
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="#precios" class="btn-secondary">Ver precios</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item"><div class="stat-number">11</div><div class="stat-label">Servicios disponibles</div></div>
+        <div class="stat-item"><div class="stat-number">100%</div><div class="stat-label">Compromiso garantizado</div></div>
+        <div class="stat-item"><div class="stat-number">24/7</div><div class="stat-label">Soporte disponible</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section id="servicios">
+    <div class="section-header fade-in">
+      <span class="section-tag">Lo que hacemos</span>
+      <h2 class="section-title">Un equipo, todas las soluciones</h2>
+      <p class="section-desc">Desde construir tu presencia digital hasta proteger tu infraestructura, Vantyx cubre todo el ciclo tecnológico de tu empresa.</p>
+    </div>
+    <div class="services-grid">
+
+      <div class="service-card fade-in">
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2d6cdf" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></div>
+        <h3>Desarrollo Web</h3>
+        <p>Sitios modernos, rápidos y optimizados para buscadores. Desde landing pages hasta plataformas empresariales a medida.</p>
+      </div>
+
+      <div class="service-card fade-in">
+        <span class="service-new">Nuevo</span>
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2d6cdf" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+        <h3>Desarrollo de Software</h3>
+        <p>Aplicaciones web, sistemas de gestión internos, automatizaciones y APIs a medida. Soluciones que se adaptan exactamente a tu operación.</p>
+      </div>
+
+      <div class="service-card fade-in">
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2d6cdf" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+        <h3>Soporte Remoto</h3>
+        <p>Asistencia técnica inmediata sin desplazamientos. Resolvemos fallas de software y configuraciones en minutos.</p>
+      </div>
+
+      <div class="service-card fade-in">
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2d6cdf" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <h3>Mantenimiento Preventivo</h3>
+        <p>Revisiones periódicas de hardware y software para anticipar fallas y extender la vida útil de tus equipos.</p>
+      </div>
+
+      <div class="service-card fade-in">
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2d6cdf" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+        <h3>Mantenimiento Correctivo</h3>
+        <p>Diagnóstico y reparación ágil de equipos con fallas. Minimizamos el tiempo fuera de línea para que tu operación no se detenga.</p>
+      </div>
+
+      <div class="service-card fade-in">
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2d6cdf" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div>
+        <h3>Respaldo y Recuperación</h3>
+        <p>Estrategias de backup local y en la nube para proteger tu información crítica. Recuperación rápida ante cualquier incidente.</p>
+      </div>
+
+      <div class="service-card fade-in">
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2d6cdf" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+        <h3>Seguridad Informática</h3>
+        <p>Protección integral: antivirus empresarial, firewalls, detección de vulnerabilidades y capacitación a tu equipo.</p>
+      </div>
+
+      <div class="service-card fade-in">
+        <span class="service-new">Nuevo</span>
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2d6cdf" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="8" height="8" rx="1"/><rect x="14" y="2" width="8" height="8" rx="1"/><rect x="2" y="14" width="8" height="8" rx="1"/><path d="M14 14h2v2h-2zM18 14h2M14 18v2M18 18h2v2h-2z"/></svg></div>
+        <h3>Redes e Infraestructura</h3>
+        <p>Configuración de routers, switches, VPNs y WiFi empresarial. Diseñamos redes que escalan con tu empresa.</p>
+      </div>
+
+      <div class="service-card fade-in">
+        <span class="service-new">Nuevo</span>
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2d6cdf" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <h3>Cloud y Migración</h3>
+        <p>Migración a Google Workspace, Microsoft 365 o servidores en la nube. Moderniza tu infraestructura sin interrumpir tu operación.</p>
+      </div>
+
+      <div class="service-card fade-in">
+        <span class="service-new">Nuevo</span>
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2d6cdf" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+        <h3>Automatización de Procesos</h3>
+        <p>Scripts, bots y herramientas que eliminan tareas repetitivas. Ahorra tiempo y reduce errores humanos en tu operación.</p>
+      </div>
+
+      <div class="service-card fade-in">
+        <span class="service-new">Nuevo</span>
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2d6cdf" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <h3>Capacitación Tecnológica</h3>
+        <p>Cursos y talleres para equipos de trabajo: ciberseguridad, herramientas en la nube y buenas prácticas digitales.</p>
+      </div>
+
+      <div class="service-card fade-in">
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2d6cdf" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div>
+        <h3>Consultoría Tecnológica</h3>
+        <p>Asesoría en decisiones tecnológicas: infraestructura, herramientas, seguridad y planeación digital para tu empresa.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PRECIOS -->
+  <section id="precios">
+    <div class="section-header fade-in">
+      <span class="section-tag">Inversión</span>
+      <h2 class="section-title">Precios claros, sin sorpresas</h2>
+      <p class="section-desc">Tarifas orientativas para empresas en México. Todos los precios en MXN e incluyen IVA. Cotizaciones personalizadas disponibles.</p>
+    </div>
+    <div class="pricing-grid">
+
+      <div class="pricing-card fade-in">
+        <div class="pricing-service">Mantenimiento</div>
+        <h3>Visita Preventiva</h3>
+        <p class="pricing-desc">Revisión completa por equipo. Limpieza, diagnóstico y reporte detallado.</p>
+        <div class="pricing-price"><span class="price-currency">$</span><span class="price-amount">350</span><span class="price-period">/ equipo</span></div>
+        <ul class="pricing-features">
+          <li>Limpieza interna de hardware</li>
+          <li>Diagnóstico de software y OS</li>
+          <li>Actualización de drivers</li>
+          <li>Reporte de estado del equipo</li>
+          <li>Descuento por volumen (+5 equipos)</li>
+        </ul>
+        <a href="#contacto" class="pricing-cta">Solicitar visita</a>
+      </div>
+
+      <div class="pricing-card featured fade-in">
+        <div class="pricing-badge">⭐ Más popular</div>
+        <div class="pricing-service">Soporte Remoto</div>
+        <h3>Plan Mensual Empresarial</h3>
+        <p class="pricing-desc">Soporte remoto ilimitado. Ideal para equipos de 5 a 30 usuarios.</p>
+        <div class="pricing-price"><span class="price-currency">$</span><span class="price-amount">2,800</span><span class="price-period">/ mes</span></div>
+        <ul class="pricing-features">
+          <li>Soporte remoto ilimitado</li>
+          <li>Tiempo de respuesta &lt; 2 hrs</li>
+          <li>Hasta 20 equipos incluidos</li>
+          <li>Monitoreo básico de red</li>
+          <li>Reporte mensual de incidencias</li>
+          <li>1 visita presencial incluida</li>
+        </ul>
+        <a href="#contacto" class="pricing-cta">Contratar plan</a>
+      </div>
+
+      <div class="pricing-card fade-in">
+        <div class="pricing-service">Seguridad</div>
+        <h3>Auditoría de Seguridad</h3>
+        <p class="pricing-desc">Evaluación completa de tu infraestructura y red empresarial.</p>
+        <div class="pricing-price"><span class="price-currency">$</span><span class="price-amount">4,500</span><span class="price-period">único</span></div>
+        <ul class="pricing-features">
+          <li>Análisis de vulnerabilidades</li>
+          <li>Revisión de políticas de acceso</li>
+          <li>Evaluación de firewall y red</li>
+          <li>Reporte ejecutivo de riesgos</li>
+          <li>Plan de acción recomendado</li>
+        </ul>
+        <a href="#contacto" class="pricing-cta">Solicitar auditoría</a>
+      </div>
+
+      <div class="pricing-card fade-in">
+        <div class="pricing-service">Respaldo</div>
+        <h3>Backup Empresarial</h3>
+        <p class="pricing-desc">Respaldo automático en la nube y local con monitoreo continuo.</p>
+        <div class="pricing-price"><span class="price-currency">$</span><span class="price-amount">1,200</span><span class="price-period">/ mes</span></div>
+        <ul class="pricing-features">
+          <li>Backup diario automatizado</li>
+          <li>Almacenamiento en nube seguro</li>
+          <li>Retención de 30 días</li>
+          <li>Pruebas de recuperación mensuales</li>
+          <li>Alertas ante fallos</li>
+        </ul>
+        <a href="#contacto" class="pricing-cta">Activar respaldo</a>
+      </div>
+
+      <div class="pricing-card fade-in">
+        <div class="pricing-service">Desarrollo Web</div>
+        <h3>Sitio Corporativo</h3>
+        <p class="pricing-desc">Diseño y desarrollo profesional, optimizado para SEO y móviles.</p>
+        <div class="pricing-price"><span class="price-currency">$</span><span class="price-amount">12,000</span><span class="price-period">desde</span></div>
+        <ul class="pricing-features">
+          <li>Diseño personalizado (sin templates)</li>
+          <li>Hasta 8 secciones / páginas</li>
+          <li>Optimización SEO básica</li>
+          <li>Formulario de contacto</li>
+          <li>Dominio y hosting 1er año</li>
+          <li>Capacitación de uso incluida</li>
+        </ul>
+        <a href="#contacto" class="pricing-cta">Cotizar proyecto</a>
+      </div>
+
+      <div class="pricing-card fade-in">
+        <div class="pricing-service">Software a Medida</div>
+        <h3>Sistema Empresarial</h3>
+        <p class="pricing-desc">Aplicaciones web o sistemas internos adaptados exactamente a tu operación.</p>
+        <div class="pricing-price"><span class="price-currency">$</span><span class="price-amount">25,000</span><span class="price-period">desde</span></div>
+        <ul class="pricing-features">
+          <li>Análisis de requerimientos</li>
+          <li>Diseño UX/UI incluido</li>
+          <li>Desarrollo a medida</li>
+          <li>Pruebas y documentación</li>
+          <li>Soporte post-entrega 60 días</li>
+          <li>Código fuente entregado</li>
+        </ul>
+        <a href="#contacto" class="pricing-cta">Solicitar cotización</a>
+      </div>
+
+    </div>
+    <p class="pricing-note fade-in"><strong>¿Necesitas algo diferente?</strong> Todos los precios son orientativos. Contáctanos para una cotización personalizada según el tamaño y necesidades de tu empresa.</p>
+  </section>
+
+  <!-- BLOG -->
+  <section id="blog">
+    <div class="section-header fade-in">
+      <span class="section-tag">Conocimiento</span>
+      <h2 class="section-title">Blog & Recursos</h2>
+      <p class="section-desc">Artículos prácticos para mantener tu empresa tecnológicamente sana y al día.</p>
+    </div>
+    <div class="blog-grid">
+      <div class="blog-card fade-in">
+        <div class="blog-thumb blog-thumb-1">🖥️</div>
+        <div class="blog-body">
+          <span class="blog-tag">Mantenimiento</span>
+          <h3>5 señales de que tu equipo necesita mantenimiento urgente</h3>
+          <p>El ruido del ventilador, los arranques lentos y los cierres inesperados son síntomas que no debes ignorar.</p>
+          <div class="blog-meta"><span>5 min lectura</span><a href="#contacto" class="blog-read-more">Leer más →</a></div>
+        </div>
+      </div>
+      <div class="blog-card fade-in">
+        <div class="blog-thumb blog-thumb-2">🔒</div>
+        <div class="blog-body">
+          <span class="blog-tag">Seguridad</span>
+          <h3>Cómo proteger tu empresa del ransomware en 2025</h3>
+          <p>Los ataques a PYMEs mexicanas aumentaron significativamente. Estas son las medidas que toda empresa debe implementar.</p>
+          <div class="blog-meta"><span>7 min lectura</span><a href="#contacto" class="blog-read-more">Leer más →</a></div>
+        </div>
+      </div>
+      <div class="blog-card fade-in">
+        <div class="blog-thumb blog-thumb-3">⚙️</div>
+        <div class="blog-body">
+          <span class="blog-tag">Software</span>
+          <h3>¿Cuándo necesita tu empresa un sistema a medida?</h3>
+          <p>Excel y WhatsApp tienen un límite. Te explicamos cuándo vale la pena invertir en software propio y qué esperar del proceso.</p>
+          <div class="blog-meta"><span>6 min lectura</span><a href="#contacto" class="blog-read-more">Leer más →</a></div>
+        </div>
+      </div>
+      <div class="blog-card fade-in">
+        <div class="blog-thumb blog-thumb-4">☁️</div>
+        <div class="blog-body">
+          <span class="blog-tag">Cloud</span>
+          <h3>Google Workspace vs Microsoft 365: ¿cuál conviene a tu empresa?</h3>
+          <p>Comparamos precios, funciones y casos de uso reales para que tomes la mejor decisión para tu equipo.</p>
+          <div class="blog-meta"><span>5 min lectura</span><a href="#contacto" class="blog-read-more">Leer más →</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="blog-coming-soon fade-in">
+      ✍️ Publicamos nuevos artículos cada semana. <a href="#contacto" style="color:var(--accent);font-weight:600;">Suscríbete</a> para recibirlos en tu correo.
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="faq-layout">
+      <div class="fade-in">
+        <span class="section-tag">Preguntas frecuentes</span>
+        <h2 class="section-title">Todo lo que necesitas saber</h2>
+        <p class="section-desc" style="margin-top:0.75rem;">Si no encuentras tu respuesta aquí, escríbenos directamente y con gusto te atendemos.</p>
+        <a href="#contacto" class="btn-primary" style="margin-top:2rem;display:inline-flex;">
+          Hacer una pregunta
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+      <div class="faq-list fade-in">
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">¿Atienden a empresas de cualquier tamaño?<span class="faq-icon">+</span></button>
+          <div class="faq-answer">Sí. Trabajamos con startups, empresas medianas y corporativos. Nuestros servicios y precios se adaptan al tamaño y presupuesto de cada cliente, desde soporte básico hasta desarrollo de software complejo.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">¿Cuánto tarda desarrollar un sistema a medida?<span class="faq-icon">+</span></button>
+          <div class="faq-answer">Un sistema básico puede entregarse en 4 a 6 semanas. Proyectos más robustos toman de 2 a 4 meses. Siempre comenzamos con un análisis de requerimientos gratuito y entregamos un cronograma detallado antes de arrancar.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">¿El soporte remoto es seguro?<span class="faq-icon">+</span></button>
+          <div class="faq-answer">Sí. Usamos herramientas con cifrado de extremo a extremo. El técnico solo tiene acceso mientras tú lo autorices y puedes ver todo en pantalla en tiempo real. Nunca trabajamos sin tu presencia o consentimiento explícito.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">¿En qué zonas brindan servicio presencial?<span class="faq-icon">+</span></button>
+          <div class="faq-answer">El servicio presencial cubre el área metropolitana de Guadalajara y la ZMG. El soporte remoto, desarrollo de software, cloud y consultoría están disponibles para todo México sin costo adicional por ubicación.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">¿Ofrecen contratos anuales?<span class="faq-icon">+</span></button>
+          <div class="faq-answer">Sí, con descuentos de hasta el 20% respecto a tarifas mensuales. También ofrecemos esquemas de retención mensual para desarrollo y soporte, ideales para empresas que necesitan acompañamiento continuo.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">¿Facturan? ¿Trabajan con empresas formales?<span class="faq-icon">+</span></button>
+          <div class="faq-answer">Sí, somos 100% formales. Emitimos facturas CFDI para todos nuestros servicios. Los precios incluyen IVA y podemos adaptarnos a procesos de compra y proveeduría formales de tu empresa.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOSOTROS -->
+  <section id="nosotros">
+    <div class="section-header fade-in">
+      <span class="section-tag">Nuestra esencia</span>
+      <h2 class="section-title">Quiénes somos</h2>
+      <p class="section-desc">Vantyx nació de la convicción de que toda empresa, sin importar su tamaño, merece acceso a tecnología de calidad y un equipo que realmente entienda su negocio.</p>
+    </div>
+    <div class="mvv-grid">
+      <div class="mvv-card fade-in">
+        <div class="mvv-label">Misión</div>
+        <h3>Tecnología al servicio de las personas</h3>
+        <p>Brindar soluciones tecnológicas accesibles, eficientes y de alta calidad que permitan a empresas de todos los tamaños alcanzar sus objetivos digitales con confianza y respaldo profesional.</p>
+      </div>
+      <div class="mvv-card fade-in">
+        <div class="mvv-label">Visión</div>
+        <h3>Referente tecnológico de la región</h3>
+        <p>Ser la empresa de servicios tecnológicos integrales de mayor confianza en México, reconocida por la excelencia de nuestro servicio, la innovación constante y el impacto real en cada cliente.</p>
+      </div>
+      <div class="mvv-card fade-in">
+        <div class="mvv-label">Objetivo</div>
+        <h3>Impulsar el crecimiento digital</h3>
+        <p>Desarrollar e implementar soluciones tecnológicas que optimicen la operación de nuestros clientes, reduciendo costos, mejorando la productividad y preparándolos para los retos del mundo digital.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto">
+    <div class="contact-layout">
+      <div class="contact-info fade-in">
+        <span class="section-tag">Hablemos</span>
+        <h2>¿Listo para empezar?</h2>
+        <p>Cuéntanos sobre tu proyecto o necesidad tecnológica. Nuestro equipo te responderá en menos de 24 horas hábiles.</p>
+        <div class="contact-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2d6cdf" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          vantyxsupportti@gmail.com
+        </div>
+        <div class="contact-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2d6cdf" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          <a href="https://www.instagram.com/vantyxti/" target="_blank" style="color:var(--steel);text-decoration:none;">@vantyxti</a>
+        </div>
+        <div class="contact-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2d6cdf" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Guadalajara, Jalisco, México
+        </div>
+      </div>
+      <div class="contact-form fade-in">
+        <div class="form-group"><label>Nombre completo</label><input type="text" placeholder="Tu nombre" /></div>
+        <div class="form-group"><label>Correo electrónico</label><input type="email" placeholder="correo@empresa.com" /></div>
+        <div class="form-group">
+          <label>Servicio de interés</label>
+          <select>
+            <option value="">Selecciona un servicio</option>
+            <option>Desarrollo Web</option>
+            <option>Desarrollo de Software a Medida</option>
+            <option>Soporte Remoto</option>
+            <option>Mantenimiento Preventivo</option>
+            <option>Mantenimiento Correctivo</option>
+            <option>Respaldo y Recuperación</option>
+            <option>Seguridad Informática</option>
+            <option>Redes e Infraestructura</option>
+            <option>Cloud y Migración</option>
+            <option>Automatización de Procesos</option>
+            <option>Capacitación Tecnológica</option>
+            <option>Consultoría Tecnológica</option>
+            <option>Otro</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Mensaje</label><textarea placeholder="Cuéntanos sobre tu proyecto o necesidad..."></textarea></div>
+        <button class="form-submit">Enviar mensaje →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">
+      <svg viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polyline points="28,18 10,50 28,82" stroke="#5a6478" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <polyline points="92,18 110,50 92,82" stroke="#5a6478" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <rect x="38" y="33" width="44" height="34" fill="#4a8fff"/>
+        <ellipse cx="60" cy="33" rx="22" ry="7" fill="#4a8fff"/>
+        <ellipse cx="60" cy="44" rx="22" ry="7" fill="#6aa3ff"/>
+        <ellipse cx="60" cy="55" rx="22" ry="7" fill="#4a8fff"/>
+        <ellipse cx="60" cy="67" rx="22" ry="7" fill="#4a8fff"/>
+      </svg>
+      <span><em>Van</em>tyx</span>
+    </div>
+    <span>© 2025 Vantyx · Guadalajara, México · Todos los derechos reservados.</span>
+    <div style="display:flex;gap:1.5rem;">
+      <a href="#servicios">Servicios</a>
+      <a href="#precios">Precios</a>
+      <a href="#blog">Blog</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+  </footer>
+
+  <script>
+    function toggleFaq(btn) {
+      const answer = btn.nextElementSibling;
+      const isOpen = answer.classList.contains('open');
+      document.querySelectorAll('.faq-answer.open').forEach(a => a.classList.remove('open'));
+      document.querySelectorAll('.faq-question.open').forEach(b => b.classList.remove('open'));
+      if (!isOpen) { answer.classList.add('open'); btn.classList.add('open'); }
+    }
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    const sections = document.querySelectorAll('section[id]');
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY + 120;
+      sections.forEach(s => {
+        const link = document.querySelector('.nav-links a[href="#' + s.id + '"]');
+        if (!link) return;
+        const active = y >= s.offsetTop && y < s.offsetTop + s.offsetHeight;
+        link.style.color = active ? 'var(--navy)' : '';
+        link.style.fontWeight = active ? '700' : '';
+      });
+    });
+  </script>
+
+  <!-- ── INSTAGRAM FLOAT BUTTON ───────────────────────────── -->
+  <a href="https://www.instagram.com/vantyxti/" target="_blank" rel="noopener" class="ig-float" aria-label="Síguenos en Instagram">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2" y="2" width="20" height="20" rx="5"/>
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+    </svg>
+    @vantyxti
+  </a>
+
+</body>
+</html>
